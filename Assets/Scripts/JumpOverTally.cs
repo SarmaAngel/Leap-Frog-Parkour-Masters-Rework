@@ -32,19 +32,19 @@ public class JumpOverTally : MonoBehaviour
             if (hit.collider.gameObject.name == "Player One" && playerTwoJumpCooldown <= 0)
             {
                 // Increment Player Two's jump counter and start the cooldown
-                playerTwoJumps++;
                 playerTwoJumpCooldown = jumpCooldownDuration;
 
-                Debug.Log("Player Two's jump count: " + playerTwoJumps);
+                Managers.PlayerTwoInventory.AddItem("Player Two Jumps");
+
             }
             // Check if the hit object's name is "Player Two"
             else if (hit.collider.gameObject.name == "Player Two" && playerOneJumpCooldown <= 0)
             {
                 // Increment Player One's jump counter and start the cooldown
-                playerOneJumps++;
                 playerOneJumpCooldown = jumpCooldownDuration;
 
-                Debug.Log("Player One's jump count: " + playerOneJumps);
+                Managers.PlayerOneInventory.AddItem("Player One Jumps");
+
             }
         }
     }

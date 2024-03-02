@@ -16,17 +16,17 @@ public class Collectible : MonoBehaviour
         {
             OnCollected?.Invoke();
             gameObject.SetActive(false);
-            playerOneCollectibles++;
 
-            Debug.Log("Player One Collect: " + playerOneCollectibles);
+            Managers.PlayerOneInventory.AddItem("Player One Collectibles");
+
         }
         else if (other.gameObject.name == "Player Two")
         {
             OnCollected?.Invoke();
             gameObject.SetActive(false);
-            playerTwoCollectibles++;
 
-            Debug.Log("Player Two Collect: " + playerTwoCollectibles);
+            Managers.PlayerTwoInventory.AddItem("Player Two Collectibles");
+
         }
     }
 

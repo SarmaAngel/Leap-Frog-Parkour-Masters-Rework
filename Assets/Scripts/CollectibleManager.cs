@@ -38,7 +38,7 @@ public class CollectibleManager : MonoBehaviour
             if (collectible != null)
             {
                 collectible.SetActive(true);
-                yield return new WaitForSeconds(15);
+                yield return new WaitForSeconds(30);
                 collectible.SetActive(false);
                 collectibles.Remove(collectible);
                 i--; // Decrement the index as we have removed an item from the list

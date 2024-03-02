@@ -7,23 +7,66 @@ public class TimeUp : MonoBehaviour
 {
     private float timeRemaining = 240; // 4 minutes in seconds
 
-    public JumpOverTally jumpOverTally;
-    public Collectible collectible;
+    public PlayerOneInventoryManager playerOneInventoryManager;
+    public PlayerTwoInventoryManager playerTwoInventoryManager;
 
     public Text resultText;
 
     void Start()
     {
-        jumpOverTally = GameObject.FindGameObjectWithTag("Player").GetComponent<JumpOverTally>();
-        collectible = GameObject.FindGameObjectWithTag("Collect").GetComponent<Collectible>();
-
-        if (jumpOverTally == null || collectible == null)
-        {
-            Debug.LogError("JumpOverTally or Collectible script not found!");
-            return;
-        } 
-
         StartCoroutine(CountdownToTimeUp());
+    }
+
+    public void DisplayScore()
+    {
+        int p1CombinedScore = 0;
+
+        foreach (KeyValuePair<string, int> item in playerOneInventoryManager.items)
+        {
+            if (item.Key == "Player One Jumps")
+            {
+                p1CombinedScore += item.Value;
+            }
+            else if (item.Key == "Player One Collectibles")
+            {
+                p1CombinedScore += item.Value;
+            }
+        }
+
+        int p2CombinedScore = 0;
+
+        foreach (KeyValuePair<string, int> item in playerTwoInventoryManager.items)
+        {
+            if (item.Key == "Player Two Jumps")
+            {
+                p2CombinedScore += item.Value;
+            }
+            else if (item.Key == "Player Two Collectibles")
+            {
+                p2CombinedScore += item.Value;
+            }
+        }
+
+        Debug.Log("Time is up!");
+        Debug.Log("Player One's total: " + p1CombinedScore);
+        Debug.Log("Player Two's total: " + p2CombinedScore);
+
+        // Compare totals
+        if (p1CombinedScore > p2CombinedScore)
+        {
+            Debug.Log("Player One wins!");
+            resultText.text = "Player One Wins!";
+        }
+        else if (p2CombinedScore > p1CombinedScore)
+        {
+            Debug.Log("Player Two wins!");
+            resultText.text = "Player Two Wins!";
+        }
+        else
+        {
+            Debug.Log("It's a draw!");
+            resultText.text = "Draw!";
+        }
     }
 
     IEnumerator CountdownToTimeUp()
@@ -37,29 +80,7 @@ public class TimeUp : MonoBehaviour
         //freeze the game
         Time.timeScale = 0;
 
-        // Time is up, calculate the totals
-        int total = jumpOverTally.GetPlayerOneJumps() + collectible.GetPlayerOneCollectibles();
-        int total2 = jumpOverTally.GetPlayerTwoJumps() + collectible.GetPlayerTwoCollectibles();
+        DisplayScore();
+    }
 
-        Debug.Log("Time is up!");
-        Debug.Log("Player One's total: " + total);
-        Debug.Log("Player Two's total: " + total2);
-
-            // Compare totals
-            if (total > total2)
-            {
-                Debug.Log("Player One wins!");
-                resultText.text = "Player One Wins!";
-            }
-            else if (total2 > total)
-            {
-                Debug.Log("Player Two wins!");
-                resultText.text = "Player Two Wins!";
-            }
-            else
-            {
-                Debug.Log("It's a draw!");
-                resultText.text = "Draw!";
-            }
-        }
 }
