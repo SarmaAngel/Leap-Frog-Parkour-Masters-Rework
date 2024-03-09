@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TimeUp : MonoBehaviour
 {
-    private float timeRemaining = 240; // 4 minutes in seconds
+    private float timeRemaining = 180; // 3 minutes
 
     public PlayerOneInventoryManager playerOneInventoryManager;
     public PlayerTwoInventoryManager playerTwoInventoryManager;
